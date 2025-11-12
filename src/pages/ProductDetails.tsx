@@ -38,14 +38,22 @@ const ProductDetails = () => {
               }}
               modules={[FreeMode, Navigation, Thumbs]}
               className="rounded-xl overflow-hidden mySwiper2"
+              touchStartPreventDefault={true} // يمنع السحب من تحريك الصفحة
+              passiveListeners={false}        // يضمن السحب على الهاتف
             >
               {filteredProduct.images.map((img, index) => (
                 <SwiperSlide key={index}>
                   <img
                     src={img}
                     alt={`${filteredProduct.name}-${index}`}
-                    style={{ width: "500px", height: "500px", objectFit: "cover" }}
-                    className="rounded-xl transition-transform duration-300 hover:scale-105"
+                    loading="lazy" // ✅ Lazy Loading
+                    style={{
+                      width: "100%",
+                      maxWidth: "500px",
+                      height: "400px", // مناسب للموبايل
+                      objectFit: "cover",
+                    }}
+                    className="rounded-xl transition-transform duration-300 hover:scale-105 mx-auto md:h-[500px]"
                   />
                 </SwiperSlide>
               ))}
@@ -65,7 +73,12 @@ const ProductDetails = () => {
                   <img
                     src={img}
                     alt={`${filteredProduct.name}-thumb-${index}`}
-                    style={{ width: "120px", height: "120px", objectFit: "cover" }}
+                    loading="lazy" // ✅ Lazy Loading
+                    style={{
+                      width: "100%",
+                      height: "120px",
+                      objectFit: "cover",
+                    }}
                     className="rounded-lg border border-gray-300 hover:border-black transition"
                   />
                 </SwiperSlide>
@@ -75,20 +88,20 @@ const ProductDetails = () => {
 
           {/* ✅ Product Info Section */}
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               {filteredProduct.name}
             </h1>
 
-            <div className="flex items-center gap-4 mb-4">
-              <p className="text-gray-400 line-through text-xl">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-4">
+              <p className="text-gray-400 line-through text-lg sm:text-xl">
                 {filteredProduct.prices[0].price} EGP
               </p>
-              <p className="text-green-600 text-2xl font-semibold">
+              <p className="text-green-600 text-xl sm:text-2xl font-semibold">
                 {filteredProduct.prices[1].price} EGP
               </p>
             </div>
 
-            <button className="bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition">
+            <button className="bg-black text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg hover:bg-gray-800 transition">
               Add to Cart
             </button>
           </div>
