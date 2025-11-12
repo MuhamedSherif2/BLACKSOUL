@@ -29,9 +29,12 @@ import realBackBlacksoul from '/blacksoul/blacksoul-realBack.png'
 export const context = createContext<IContext>({
     products: [],
     setProducts: () => {},
+    selectProduct: undefined,
+    setSelectProduct: () => {},
 });
 export const ContextProvider = ({ children }: { children: ReactNode }) => {
     const [products, setProducts] = useState<IProduct[]>([])
+    const [selectProduct, setSelectProduct] = useState<IProduct | undefined>(undefined);
 
     const closes : IProduct[] = [
         {
@@ -76,7 +79,9 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
     return(
         <context.Provider value={{
             products,
-            setProducts
+            setProducts,
+            selectProduct,
+            setSelectProduct
         }}>
             {children}
         </context.Provider>

@@ -10,4 +10,6 @@ export interface IProduct{
 export interface IContext {
     products: IProduct[];
     setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
+    selectProduct: IProduct | undefined;
+    setSelectProduct: React.Dispatch<React.SetStateAction<IProduct | undefined>>;
   }

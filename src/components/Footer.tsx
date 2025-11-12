@@ -1,3 +1,4 @@
+import { FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
     return(
