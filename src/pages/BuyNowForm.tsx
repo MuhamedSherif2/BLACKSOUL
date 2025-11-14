@@ -38,13 +38,18 @@ const BuyNowForm = () => {
     const templateParams = {
       user_name: formData.get("name"),
       user_email: formData.get("email"),
-      user_address: formData.get("address"),
       user_phone: formData.get("phone"),
+
+      user_address: formData.get("address"),
+      user_building: formData.get("building"),
+      user_floor: formData.get("floor"),
+      user_apartment: formData.get("apartment"),
+      user_landmark: formData.get("landmark"),
+
       cart_items: cartItems,
       total_price: totalPrice.toFixed(2),
     };
 
-    // إرسال للـ Admin أولاً
     emailjs
       .send(
         "service_8f3iso3",
@@ -52,7 +57,6 @@ const BuyNowForm = () => {
         { ...templateParams, to_email: "mohammedsherif675@gmail.com" },
         "EgzhjfKH_MkiSLjq_"
       )
-      // بعده إرسال للعميل
       .then(() =>
         emailjs.send(
           "service_8f3iso3",
@@ -64,11 +68,7 @@ const BuyNowForm = () => {
       .then(() => {
         setSuccess(true);
         setSending(false);
-
-        // 🧹 تفريغ السلة بالكامل
         setCart([]);
-
-        // 🧼 مسح الفورم
         formRef.current?.reset();
       })
       .catch((err) => {
@@ -85,54 +85,30 @@ const BuyNowForm = () => {
     );
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-4 text-black"
-    >
-      <h2 className="text-2xl font-bold text-center mb-4">
-        Confirm Your Order
-      </h2>
+    <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4 text-black">
+      <h2 className="text-2xl font-bold text-center mb-4">Confirm Your Order</h2>
 
-      <input
-        type="text"
-        name="name"
-        placeholder="Full Name"
-        required
-        className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88] transition-shadow"
-      />
+      <input type="text" name="name" placeholder="Full Name" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Email Address"
-        required
-        className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88] transition-shadow"
-      />
+      <input type="email" name="email" placeholder="Email Address" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
 
-      <input
-        type="text"
-        name="phone"
-        placeholder="Phone Number"
-        required
-        className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88] transition-shadow"
-      />
+      <input type="text" name="phone" placeholder="Phone Number" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
 
-      <input
-        type="text"
-        name="address"
-        placeholder="Shipping Address"
-        required
-        className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88] transition-shadow"
-      />
+      <input type="text" name="address" placeholder="Street / Area" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+
+      <input type="text" name="building" placeholder="Building Number" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+
+      <input type="text" name="floor" placeholder="Floor Number" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+
+      <input type="text" name="apartment" placeholder="Apartment Number" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+
+      <input type="text" name="landmark" placeholder="Nearest Landmark (Optional)" className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
 
       <button
         type="submit"
         disabled={sending}
         className={`text-black font-semibold py-3 rounded-xl transition-all ${
-          sending
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-[#00FF88] hover:bg-[#00CC6F] shadow-lg hover:shadow-xl"
+          sending ? "bg-gray-400 cursor-not-allowed" : "bg-[#00FF88] hover:bg-[#00CC6F] shadow-lg"
         }`}
       >
         {sending ? "Sending..." : "Confirm Order"}

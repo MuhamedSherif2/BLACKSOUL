@@ -95,11 +95,11 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="w-full md:w-1/2 px-4">
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">
+                    <h1 className="text-xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">
                         {filteredProduct.name}
                     </h1>
 
-                    <h2 className='text-white text-xl mb-4'>
+                    <h2 className='text-white text-[13px] md:text-xl mb-4'>
                         {filteredProduct.descprition}
                     </h2>
 

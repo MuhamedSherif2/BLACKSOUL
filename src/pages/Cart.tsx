@@ -40,18 +40,63 @@ const Cart = () => {
 
                 <div className="p-4 flex flex-col gap-2">
                   <h2 className="text-xl font-semibold">{product.name}</h2>
+
                   <p className="text-gray-400">
                     Price:{" "}
                     <span className="text-[#00FF88] font-semibold">
                       {product.prices[1].price} EGP
                     </span>
                   </p>
-                  <p className="text-gray-400">
-                    Quantity:{" "}
-                    <span className="text-white font-semibold">
-                      {product.quantity}
-                    </span>
-                  </p>
+
+                  {/* Quantity Controls */}
+                  <div className="flex items-center gap-3 mt-2">
+                    <span className="text-gray-400">Quantity:</span>
+
+                    <div className="flex items-center bg-[#222] px-3 py-1 rounded-xl gap-3">
+                      
+                      {/* Decrease */}
+                      <button
+                        onClick={() => {
+                          if (product.quantity > 1) {
+                            const updatedCart = cart.map(item =>
+                              item.id === product.id
+                                ? { ...item, quantity: item.quantity - 1 }
+                                : item
+                            );
+                            setCart(updatedCart);
+                            localStorage.setItem("cart", JSON.stringify(updatedCart));
+                          } else {
+                            removeFromCart(product.id);
+                          }
+                        }}
+                        className="text-white text-xl px-2 hover:text-red-400"
+                      >
+                        −
+                      </button>
+
+                      {/* Quantity number */}
+                      <span className="text-white font-semibold">
+                        {product.quantity}
+                      </span>
+
+                      {/* Increase */}
+                      <button
+                        onClick={() => {
+                          const updatedCart = cart.map(item =>
+                            item.id === product.id
+                              ? { ...item, quantity: item.quantity + 1 }
+                              : item
+                          );
+                          setCart(updatedCart);
+                          localStorage.setItem("cart", JSON.stringify(updatedCart));
+                        }}
+                        className="text-white text-xl px-2 hover:text-green-400"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
                   <button
                     onClick={() => removeFromCart(product.id)}
                     className="mt-4 bg-red-600 text-white font-semibold py-2 rounded-xl
@@ -75,6 +120,7 @@ const Cart = () => {
         </>
       )}
 
+      {/* Buy Now Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-xl shadow-xl relative w-[90%] max-w-lg">
