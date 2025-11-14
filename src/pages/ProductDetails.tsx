@@ -1,5 +1,8 @@
 import { useContext, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { FaPlus } from "react-icons/fa6";
+import { IoMdRemove } from "react-icons/io";
+
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -18,22 +21,23 @@ const ProductDetails = () => {
     const { slug } = useParams();
     const filteredProduct = products.find((product) => product.slug === slug);
 
-    const [quantity, setQuantity] = useState<number>(1); // حالة الكمية
+    const [quantity, setQuantity] = useState<number>(1);
+
+    const addQuantity = () => setQuantity(prev => prev + 1);
+    const removeQuantity = () => setQuantity(prev => prev - 1);
 
     if (!filteredProduct)
         return <p className="text-center mt-10 text-red-500">Product not found</p>;
 
     const handleAddToCart = () => {
-        for (let i = 0; i < quantity; i++) {
-            addToCart(filteredProduct);
-        }
+        for (let i = 0; i < quantity; i++) addToCart(filteredProduct);
     };
+
 
     return (
         <section className="py-20 bg-black">
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-start gap-10">
 
-                {/* صور المنتج */}
                 <div className="w-full md:w-1/2 flex flex-col items-center">
                     <Swiper
                         loop={true}
@@ -90,7 +94,6 @@ const ProductDetails = () => {
                     </Swiper>
                 </div>
 
-                {/* تفاصيل المنتج */}
                 <div className="w-full md:w-1/2 px-4">
                     <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">
                         {filteredProduct.name}
@@ -108,22 +111,32 @@ const ProductDetails = () => {
                             {filteredProduct.prices[1].price} EGP
                         </p>
                     </div>
-
-                    {/* اختيار الكمية */}
-                    <div className="flex items-center gap-2 mb-4">
+                    <div className="flex items-center gap-2">
                         <label className="text-white font-medium">Quantity:</label>
-                        <input
-                            type="number"
-                            min={1}
-                            value={quantity}
-                            onChange={(e) => setQuantity(Number(e.target.value))}
-                            className="w-20 p-2 rounded text-white border border-gray-300"
-                        />
+                        <div className="flex items-center border border-white rounded overflow-hidden p-2">
+                            <button
+                                className="bg-gray-800 text-white px-3 py-1 hover:bg-gray-700 transition cursor-pointer"
+                                onClick={removeQuantity}
+                            >
+                                <IoMdRemove />
+                            </button>
+                            <input
+                                type="text"
+                                className="w-16 text-center bg-black text-white outline-none py-1"
+                                value={quantity}
+                                readOnly
+                            />
+                            <button
+                                className="bg-gray-800 text-white px-3 py-1 hover:bg-gray-700 transition cursor-pointer"
+                                onClick={addQuantity}
+                            >
+                                <FaPlus />
+                            </button>
+                        </div>
                     </div>
 
-                    {/* زرار Add to Cart */}
                     <button
-                        className="bg-[#D7D7D7] text-black px-6 sm:px-8 py-2 sm:py-3 rounded-lg hover:bg-gray-800 hover:text-white transition duration-300 cursor-pointer"
+                        className="bg-[#D7D7D7] w-full text-black px-6 sm:px-8 py-2 mt-3 sm:py-3 rounded-lg hover:bg-gray-800 hover:text-white transition duration-300 cursor-pointer"
                         onClick={handleAddToCart}
                     >
                         Add to Cart

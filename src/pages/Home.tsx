@@ -1,3 +1,4 @@
+import About from "../components/About";
 import Products from "./Products";
 
 
@@ -11,6 +12,7 @@ const Home = () => {
             </div>
         </section>
         <Products />
+        <About />
         </>
     )
 }

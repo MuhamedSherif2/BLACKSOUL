@@ -3,8 +3,14 @@ import { context } from "../components/context";
 import BuyNowForm from "./BuyNowForm";
 
 const Cart = () => {
-  const { cart } = useContext(context);
+  const { cart, setCart } = useContext(context);
   const [showForm, setShowForm] = useState(false);
+
+  const removeFromCart = (id: number) => {
+    const updatedCart = cart.filter(product => product.id !== id);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
 
   return (
     <section className="w-full min-h-screen bg-[#0D0D0D] py-12 px-6 text-white">
@@ -46,8 +52,11 @@ const Cart = () => {
                       {product.quantity}
                     </span>
                   </p>
-                  <button className="mt-4 bg-red-600 text-white font-semibold py-2 rounded-xl
-                    hover:bg-red-700 transition-colors duration-300 cursor-pointer">
+                  <button
+                    onClick={() => removeFromCart(product.id)}
+                    className="mt-4 bg-red-600 text-white font-semibold py-2 rounded-xl
+                      hover:bg-red-700 transition-colors duration-300 cursor-pointer"
+                  >
                     Remove
                   </button>
                 </div>
@@ -55,7 +64,6 @@ const Cart = () => {
             ))}
           </div>
 
-          {/* زرار Buy Now */}
           <div className="flex justify-center mt-10">
             <button
               onClick={() => setShowForm(true)}

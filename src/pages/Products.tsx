@@ -17,9 +17,9 @@ const Products = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                     {products.map((product) => (
                         <Link key={product.id} to={`/product/${product.slug}`} className="flex justify-center items-center" onClick={() => handleSelectProduct(product)}>
-                        <div className="w-[200px] h-[170px] md:h-[300px] md:w-[350px] xl:w-[410px] 2xl:w-[470px] rounded-md overflow-hidden">
-                            <img src={product.coverIMG} alt={product.name} className="h-[170px] md:h-[300px] w-[200px] md:w-[350px] xl:w-[410px] 2xl:w-[470px]  hover:scale-110 transition duration-300 cursor-pointer" />
-                        </div>
+                            <div className="w-[200px] h-[170px] md:h-[300px] md:w-[350px] xl:w-[410px] 2xl:w-[470px] rounded-md overflow-hidden">
+                                <img src={product.coverIMG} alt={product.name} className="h-[170px] md:h-[300px] w-[200px] md:w-[350px] xl:w-[410px] 2xl:w-[470px]  hover:scale-110 transition duration-300 cursor-pointer" />
+                            </div>
                         </Link>
                     ))}
                 </div>
