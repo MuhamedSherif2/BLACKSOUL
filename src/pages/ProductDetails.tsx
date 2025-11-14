@@ -117,7 +117,7 @@ const ProductDetails = () => {
                             min={1}
                             value={quantity}
                             onChange={(e) => setQuantity(Number(e.target.value))}
-                            className="w-20 p-2 rounded text-white border border-gray-300 text-black"
+                            className="w-20 p-2 rounded text-white border border-gray-300"
                         />
                     </div>
 
