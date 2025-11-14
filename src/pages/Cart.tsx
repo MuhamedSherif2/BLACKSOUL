@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { context } from "../components/context";
-import BuyNowForm from "./BuyNowForm";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
