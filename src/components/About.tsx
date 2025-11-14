@@ -4,7 +4,7 @@ const PaymentInfo = () => {
     const features = [
         { id: 1, text: "All payment methods available" },
         { id: 2, text: "Easy returns" },
-        { id: 3, text: "24/7 Support" },
+        { id: 3, text: "24 Support" },
         { id: 4, text: "Fast delivery for all orders" },
     ];
 
