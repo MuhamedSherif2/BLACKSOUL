@@ -1,10 +1,15 @@
-// import { FaWhatsapp } from "react-icons/fa";
+import { FaInstagram , FaWhatsapp , FaTiktok } from "react-icons/fa6";
+import { FaFacebook } from "react-icons/fa";
+import Button from "./Button";
+
 
 const Footer = () => {
     return(
-        <footer>
-            <div>
-                
+        <footer className="py-7 bg-[#131313]">
+            <div className="container mx-auto flex flex-col sm:flex-row justify-center gap-10 items-center">
+                <Button icon={FaInstagram} link={'https://www.instagram.com/blvcksoul.eg?igsh=eHdvZ3hncTdtMjZ3'} name="Instagram" />
+                <Button icon={FaWhatsapp} link={'http://wa.me/201113356149'} name="Whatsapp" />
+                <Button icon={FaTiktok} link={'https://www.tiktok.com/@blavesoul?_r=1&_t=ZS-91JwyWnBH8L'} name="Tiktok" />
             </div>
         </footer>
     )
