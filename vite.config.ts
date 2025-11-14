@@ -1,12 +1,21 @@
 import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  build: {
-    rollupOptions: {
-      input: '/index.html',
+  plugins: [
+    react(),
+    tailwindcss(),
+    {
+      name: 'spa-fallback',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (req.method === 'GET' && !req.url?.includes('.') && !req.url?.startsWith('/api')) {
+            req.url = '/index.html'
+          }
+          next()
+        })
+      },
     },
-  },
+  ],
 })
