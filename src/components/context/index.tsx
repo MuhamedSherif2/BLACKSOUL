@@ -44,11 +44,11 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
     const closes: IProduct[] = [
         {
             id: 1,
-            name: '28 USA Hoodie',
-            slug: '28-usa',
-            coverIMG: cover28USA,
-            descprition:"This stylish black hoodie features a prominent collegiate-inspired design. The front showcases a large pink number '28' with a textured, dotted pattern, outlined in white. Above the '28' on the left, there's an emblem with 'MASSACHUSETTS' and 'U.S.A.' below it, surrounded by a laurel wreath design. On the right, a pink 'N' is displayed with a small light blue star and the word 'LEGENDARY' underneath. The hoodie has a classic pouch pocket at the front and a comfortable drawstring hood, combining a sporty aesthetic with a casual fit.",
-            images: [cover28USA, front28USA, back28USA, realFront28USA, realBack28USA],
+            name: '404 Error Hoodie',
+            slug: '404-Error',
+            coverIMG: cover404Error,
+            descprition:'This unique black hoodie features a distinctive "ERROR 404" graphic on the back, playing on the classic web page not found message. The design includes "ERROR" in red, followed by a large, bold "404" also in red. Below it, the phrase "HUMAN NOT FOUND" is displayed, adding a clever and slightly humorous twist. Further down, in a smaller font, it reads "SORRY! THE HUMAN YOU ARE LOOKING FOR DOES NOT EXIST." This hoodie offers a relaxed fit and a comfortable hood, making it a perfect choice for those who appreciate witty, internet-culture-inspired fashion.',
+            images: [cover404Error, frontBoy404Error, backBoy404Error, frontGirl404Error, backGirl404Error, realFront404Error, realBack404Error],
             prices: [
                 { name: 'del', price: 700 },
                 { name: 'real', price: 600 }
@@ -56,11 +56,11 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
         },
         {
             id: 2,
-            name: '404 Error Hoodie',
-            slug: '404-Error',
-            coverIMG: cover404Error,
-            descprition:'This unique black hoodie features a distinctive "ERROR 404" graphic on the back, playing on the classic web page not found message. The design includes "ERROR" in red, followed by a large, bold "404" also in red. Below it, the phrase "HUMAN NOT FOUND" is displayed, adding a clever and slightly humorous twist. Further down, in a smaller font, it reads "SORRY! THE HUMAN YOU ARE LOOKING FOR DOES NOT EXIST." This hoodie offers a relaxed fit and a comfortable hood, making it a perfect choice for those who appreciate witty, internet-culture-inspired fashion.',
-            images: [cover404Error, frontBoy404Error, backBoy404Error, frontGirl404Error, backGirl404Error, realFront404Error, realBack404Error],
+            name: '28 USA Hoodie',
+            slug: '28-usa',
+            coverIMG: cover28USA,
+            descprition:"This stylish black hoodie features a prominent collegiate-inspired design. The front showcases a large pink number '28' with a textured, dotted pattern, outlined in white. Above the '28' on the left, there's an emblem with 'MASSACHUSETTS' and 'U.S.A.' below it, surrounded by a laurel wreath design. On the right, a pink 'N' is displayed with a small light blue star and the word 'LEGENDARY' underneath. The hoodie has a classic pouch pocket at the front and a comfortable drawstring hood, combining a sporty aesthetic with a casual fit.",
+            images: [cover28USA, front28USA, back28USA, realFront28USA, realBack28USA],
             prices: [
                 { name: 'del', price: 700 },
                 { name: 'real', price: 600 }
