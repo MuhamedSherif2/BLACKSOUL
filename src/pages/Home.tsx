@@ -1,5 +1,5 @@
 import About from "../components/About";
-import Products from "./Products";
+import Products from "./product/Products";
 
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
                     <h3 className="text-[15px] md:text-6xl font-bold text-white tracking-wider mt-3 text-center">SOUL IN EVERY STITCH</h3>
                 </div>
             </section>
-            <Products />
+            <Products limit={3} />
             <About />
         </>
     )

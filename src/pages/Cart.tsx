@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { context } from "../components/context";
 import BuyNowForm from "./BuyNowForm";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cart, setCart } = useContext(context);
-  const [showForm, setShowForm] = useState(false);
 
   const removeFromCart = (id: number) => {
     const updatedCart = cart.filter(product => product.id !== id);
@@ -53,7 +53,7 @@ const Cart = () => {
                     <span className="text-gray-400">Quantity:</span>
 
                     <div className="flex items-center bg-[#222] px-3 py-1 rounded-xl gap-3">
-                      
+
                       {/* Decrease */}
                       <button
                         onClick={() => {
@@ -110,29 +110,15 @@ const Cart = () => {
           </div>
 
           <div className="flex justify-center mt-10">
-            <button
-              onClick={() => setShowForm(true)}
-              className="bg-[#00FF88] text-black font-semibold py-3 px-6 rounded-xl hover:bg-[#00CC6F] transition-all"
-            >
-              Buy Now
-            </button>
+            <Link to={'/buyNow'} >
+              <button
+                className="bg-[#00FF88] text-black font-semibold py-3 px-6 rounded-xl hover:bg-[#00CC6F] transition-all"
+              >
+                Buy Now
+              </button>
+            </Link>
           </div>
         </>
-      )}
-
-      {/* Buy Now Form Modal */}
-      {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-xl shadow-xl relative w-[90%] max-w-lg">
-            <button
-              onClick={() => setShowForm(false)}
-              className="absolute top-3 right-3 text-black text-xl font-bold"
-            >
-              ✖
-            </button>
-            <BuyNowForm />
-          </div>
-        </div>
       )}
     </section>
   );

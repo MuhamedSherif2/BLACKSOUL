@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ProductDetails from './pages/ProductDetails'
 import Footer from './components/Footer'
 import Cart from './pages/Cart'
+import BuyNowForm from './pages/BuyNowForm'
+import ProductsPage from './pages/product/ProductsPage'
 
 function App() {
   return (
@@ -14,8 +16,10 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' index element={<Home />} />
+          <Route path='/products' element={<ProductsPage />} />
           <Route path='/product/:slug' element={<ProductDetails />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/buyNow' element={<BuyNowForm />} />
         </Routes>
         <Footer />
       </BrowserRouter>

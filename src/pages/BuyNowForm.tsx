@@ -14,23 +14,27 @@ const BuyNowForm = () => {
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + (item.prices[1]?.price || 0) * item.quantity,
+    0
+  );
+
+  const inputClass =
+    "p-3 rounded-md border-2 border-gray-400 text-white focus:border-[#00FF88] focus:ring-2 focus:ring-[#00FF88] transition-colors";
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formRef.current) return;
+
     setSending(true);
 
     const formData = new FormData(formRef.current);
 
-    const totalPrice = cart.reduce(
-      (acc, item) => acc + (item.prices[1]?.price || 0) * item.quantity,
-      0
-    );
-
     const cartItems = cart
       .map(
         (item) =>
-          `${item.name} - QTY: ${item.quantity} - Price: ${
-            item.prices[1]?.price || 0
+          `${item.name} - QTY: ${item.quantity} - Price: ${item.prices[1]?.price || 0
           } EGP`
       )
       .join("<br>");
@@ -46,8 +50,9 @@ const BuyNowForm = () => {
       user_apartment: formData.get("apartment"),
       user_landmark: formData.get("landmark"),
 
+      total_quantity: totalQuantity,
+      total_price: totalPrice,
       cart_items: cartItems,
-      total_price: totalPrice.toFixed(2),
     };
 
     emailjs
@@ -70,50 +75,66 @@ const BuyNowForm = () => {
         setSending(false);
         setCart([]);
         formRef.current?.reset();
+        localStorage.removeItem("cart");
       })
-      .catch((err) => {
-        console.error("Failed to send emails:", err);
-        setSending(false);
-      });
+      .catch(() => setSending(false));
   };
 
   if (success)
     return (
-      <div className="text-center text-green-600 font-semibold py-6">
-        ✅ Order sent successfully!
-      </div>
+      <section className="min-h-screen flex justify-center items-center text-green-600 font-bold text-xl">
+        ✅ Order Sent Successfully!
+      </section>
     );
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4 text-black">
-      <h2 className="text-2xl font-bold text-center mb-4">Confirm Your Order</h2>
+    <section className="w-full min-h-screen bg-[#0D0D0D] text-white py-12 px-6">
+      <h1 className="text-3xl font-bold text-center mb-10 mt-7">Checkout</h1>
 
-      <input type="text" name="name" placeholder="Full Name" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
 
-      <input type="email" name="email" placeholder="Email Address" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+        {/* LEFT: ORDER FORM */}
+        <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4 bg-[#1A1A1A] p-6 rounded-xl">
+          <h2 className="text-2xl font-bold mb-2">Shipping Details</h2>
 
-      <input type="text" name="phone" placeholder="Phone Number" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+          <input type="text" name="name" placeholder="Full Name" required className={inputClass} />
+          <input type="email" name="email" placeholder="Email Address" required className={inputClass} />
+          <input type="text" name="phone" placeholder="Phone Number" required className={inputClass} />
 
-      <input type="text" name="address" placeholder="Street / Area" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+          <input type="text" name="address" placeholder="Street / Area" required className={inputClass} />
+          <input type="text" name="building" placeholder="Building Number" required className={inputClass} />
+          <input type="text" name="floor" placeholder="Floor Number" required className={inputClass} />
+          <input type="text" name="apartment" placeholder="Apartment Number" required className={inputClass} />
+          <input type="text" name="landmark" placeholder="Nearest Landmark (Optional)" className={inputClass} />
 
-      <input type="text" name="building" placeholder="Building Number" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+          <button
+            type="submit"
+            disabled={sending}
+            className={`text-black font-semibold py-3 rounded-xl transition-all ${sending ? "bg-gray-500 cursor-not-allowed" : "bg-[#00FF88] hover:bg-[#00CC6F]"
+              }`}
+          >
+            {sending ? "Processing..." : "Confirm Order"}
+          </button>
+        </form>
 
-      <input type="text" name="floor" placeholder="Floor Number" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+        {/* RIGHT: ORDER SUMMARY */}
+        <div className="bg-[#1A1A1A] p-6 rounded-xl h-fit">
+          <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
 
-      <input type="text" name="apartment" placeholder="Apartment Number" required className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
+          {cart.map((item) => (
+            <div key={item.id} className="flex justify-between border-b border-gray-700 py-3">
+              <span>{item.name} (x{item.quantity})</span>
+              <span>{item.prices[1].price * item.quantity} EGP</span>
+            </div>
+          ))}
 
-      <input type="text" name="landmark" placeholder="Nearest Landmark (Optional)" className="p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#00FF88]" />
-
-      <button
-        type="submit"
-        disabled={sending}
-        className={`text-black font-semibold py-3 rounded-xl transition-all ${
-          sending ? "bg-gray-400 cursor-not-allowed" : "bg-[#00FF88] hover:bg-[#00CC6F] shadow-lg"
-        }`}
-      >
-        {sending ? "Sending..." : "Confirm Order"}
-      </button>
-    </form>
+          <div className="mt-6 text-lg">
+            <p>Total Quantity: <strong>{totalQuantity}</strong></p>
+            <p>Total Price: <strong className="text-[#00FF88]">{totalPrice} EGP</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
