@@ -20,6 +20,9 @@ const BuyNowForm = () => {
     0
   );
 
+  const shippingCost = 70;
+  const grandTotal = totalPrice + shippingCost;
+
   const inputClass =
     "p-3 rounded-md border-2 border-gray-400 text-white focus:border-[#00FF88] focus:ring-2 focus:ring-[#00FF88] transition-colors";
 
@@ -34,8 +37,7 @@ const BuyNowForm = () => {
     const cartItems = cart
       .map(
         (item) =>
-          `${item.name} - QTY: ${item.quantity} - Price: ${item.prices[1]?.price || 0
-          } EGP`
+          `${item.name} - QTY: ${item.quantity} - Price: ${item.prices[1]?.price || 0} EGP`
       )
       .join("<br>");
 
@@ -52,6 +54,8 @@ const BuyNowForm = () => {
 
       total_quantity: totalQuantity,
       total_price: totalPrice,
+      shipping_cost: shippingCost,
+      grand_total: grandTotal,
       cart_items: cartItems,
     };
 
@@ -83,7 +87,7 @@ const BuyNowForm = () => {
   if (success)
     return (
       <section className="min-h-screen flex justify-center items-center text-green-600 font-bold text-xl">
-        ✅ Order Sent Successfully!
+        Order Sent Successfully!
       </section>
     );
 
@@ -92,7 +96,7 @@ const BuyNowForm = () => {
       <h1 className="text-3xl font-bold text-center mb-10 mt-7">Checkout</h1>
 
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-
+        
         {/* LEFT: ORDER FORM */}
         <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4 bg-[#1A1A1A] p-6 rounded-xl">
           <h2 className="text-2xl font-bold mb-2">Shipping Details</h2>
@@ -110,8 +114,9 @@ const BuyNowForm = () => {
           <button
             type="submit"
             disabled={sending}
-            className={`text-black font-semibold py-3 rounded-xl transition-all ${sending ? "bg-gray-500 cursor-not-allowed" : "bg-[#00FF88] hover:bg-[#00CC6F]"
-              }`}
+            className={`text-black font-semibold py-3 rounded-xl transition-all ${
+              sending ? "bg-gray-500 cursor-not-allowed" : "bg-[#00FF88] hover:bg-[#00CC6F]"
+            }`}
           >
             {sending ? "Processing..." : "Confirm Order"}
           </button>
@@ -130,7 +135,14 @@ const BuyNowForm = () => {
 
           <div className="mt-6 text-lg">
             <p>Total Quantity: <strong>{totalQuantity}</strong></p>
+
+            <p>Shipping: <strong className="text-yellow-300">70 EGP</strong></p>
+
             <p>Total Price: <strong className="text-[#00FF88]">{totalPrice} EGP</strong></p>
+
+            <p className="mt-4 text-2xl font-bold text-[#00FF88]">
+              Grand Total: {grandTotal} EGP
+            </p>
           </div>
         </div>
       </div>

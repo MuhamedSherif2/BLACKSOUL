@@ -104,12 +104,12 @@ const ProductDetails = () => {
                     </h2>
 
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-4">
-                        <p className="line-through text-lg sm:text-xl text-red-600">
+                        <p className="text-lg sm:text-xl text-green-600 ">
                             {filteredProduct.prices[0].price} EGP
                         </p>
-                        <p className="text-green-600 text-xl sm:text-2xl font-semibold">
+                        {/* <p className="text-green-600 text-xl sm:text-2xl font-semibold">
                             {filteredProduct.prices[1].price} EGP
-                        </p>
+                        </p> */}
                     </div>
                     <div className="flex items-center gap-2">
                         <label className="text-white font-medium">Quantity:</label>
