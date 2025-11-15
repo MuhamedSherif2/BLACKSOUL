@@ -11,6 +11,14 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  const updateQuantity = (id: number, newQuantity: number) => {
+    const updatedCart = cart.map(product =>
+      product.id === id ? { ...product, quantity: newQuantity } : product
+    );
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
   return (
     <section className="w-full min-h-screen bg-[#0D0D0D] py-12 px-6 text-white">
       <h1 className="text-3xl font-semibold mb-8 text-center mt-7">
@@ -40,10 +48,11 @@ const Cart = () => {
                 <div className="p-4 flex flex-col gap-2">
                   <h2 className="text-xl font-semibold">{product.name}</h2>
 
+                  {/* PRICE */}
                   <p className="text-gray-400">
                     Price:{" "}
                     <span className="text-[#00FF88] font-semibold">
-                      {product.prices[1].price} EGP
+                      {product.prices[0].price} EGP
                     </span>
                   </p>
 
@@ -52,18 +61,10 @@ const Cart = () => {
                     <span className="text-gray-400">Quantity:</span>
 
                     <div className="flex items-center bg-[#222] px-3 py-1 rounded-xl gap-3">
-
-                      {/* Decrease */}
                       <button
                         onClick={() => {
                           if (product.quantity > 1) {
-                            const updatedCart = cart.map(item =>
-                              item.id === product.id
-                                ? { ...item, quantity: item.quantity - 1 }
-                                : item
-                            );
-                            setCart(updatedCart);
-                            localStorage.setItem("cart", JSON.stringify(updatedCart));
+                            updateQuantity(product.id, product.quantity - 1);
                           } else {
                             removeFromCart(product.id);
                           }
@@ -73,22 +74,12 @@ const Cart = () => {
                         −
                       </button>
 
-                      {/* Quantity number */}
                       <span className="text-white font-semibold">
                         {product.quantity}
                       </span>
 
-                      {/* Increase */}
                       <button
-                        onClick={() => {
-                          const updatedCart = cart.map(item =>
-                            item.id === product.id
-                              ? { ...item, quantity: item.quantity + 1 }
-                              : item
-                          );
-                          setCart(updatedCart);
-                          localStorage.setItem("cart", JSON.stringify(updatedCart));
-                        }}
+                        onClick={() => updateQuantity(product.id, product.quantity + 1)}
                         className="text-white text-xl px-2 hover:text-green-400"
                       >
                         +
@@ -109,7 +100,7 @@ const Cart = () => {
           </div>
 
           <div className="flex justify-center mt-10">
-            <Link to={'/buyNow'} >
+            <Link to={"/buyNow"}>
               <button
                 className="bg-[#00FF88] text-black font-semibold py-3 px-6 rounded-xl hover:bg-[#00CC6F] transition-all"
               >

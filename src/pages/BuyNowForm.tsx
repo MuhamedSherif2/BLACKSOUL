@@ -14,9 +14,12 @@ const BuyNowForm = () => {
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  // حساب الكمية الإجمالية
   const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  // حساب السعر الإجمالي مع دعم سعر واحد أو أكثر
   const totalPrice = cart.reduce(
-    (acc, item) => acc + (item.prices[1]?.price || 0) * item.quantity,
+    (acc, item) => acc + ((item.prices[1]?.price ?? item.prices[0].price) * item.quantity),
     0
   );
 
@@ -37,7 +40,7 @@ const BuyNowForm = () => {
     const cartItems = cart
       .map(
         (item) =>
-          `${item.name} - QTY: ${item.quantity} - Price: ${item.prices[1]?.price || 0} EGP`
+          `${item.name} - QTY: ${item.quantity} - Price: ${item.prices[1]?.price ?? item.prices[0].price} EGP`
       )
       .join("<br>");
 
@@ -129,17 +132,14 @@ const BuyNowForm = () => {
           {cart.map((item) => (
             <div key={item.id} className="flex justify-between border-b border-gray-700 py-3">
               <span>{item.name} (x{item.quantity})</span>
-              <span>{item.prices[1].price * item.quantity} EGP</span>
+              <span>{(item.prices[1]?.price ?? item.prices[0].price) * item.quantity} EGP</span>
             </div>
           ))}
 
           <div className="mt-6 text-lg">
             <p>Total Quantity: <strong>{totalQuantity}</strong></p>
-
             <p>Shipping: <strong className="text-yellow-300">70 EGP</strong></p>
-
             <p>Total Price: <strong className="text-[#00FF88]">{totalPrice} EGP</strong></p>
-
             <p className="mt-4 text-2xl font-bold text-[#00FF88]">
               Grand Total: {grandTotal} EGP
             </p>
