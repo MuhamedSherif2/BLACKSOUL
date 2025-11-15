@@ -5,7 +5,7 @@ import type { IProduct } from "../../interfaces";
 
 interface IProductsProps {
   fullHeight?: boolean;
-  limit?: number;   
+  limit?: number;
 }
 
 const Products = ({ fullHeight = false, limit }: IProductsProps) => {
@@ -19,11 +19,19 @@ const Products = ({ fullHeight = false, limit }: IProductsProps) => {
 
   return (
     <section className={`w-full bg-black ${fullHeight ? 'py-10' : 'p-7'}`}>
-      <div className="container mx-auto">
+      <div className="container mx-auto mt-10">
         <h1 className="mb-5 text-white text-center font-bold text-xl md:text-3xl">
           Hoodies
         </h1>
-        <div className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5`}>
+
+        {/* GRID SYSTEM */}
+        <div
+          className={`grid gap-5 ${
+            displayProducts.length === 1
+              ? "grid-cols-1 place-items-center"
+              : "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+          }`}
+        >
           {displayProducts.map((product) => (
             <Link 
               key={product.id} 
@@ -31,11 +39,17 @@ const Products = ({ fullHeight = false, limit }: IProductsProps) => {
               className="flex justify-center items-center"
               onClick={() => handleSelectProduct(product)}
             >
-              <div className={`
-                w-[200px] md:w-[350px] xl:w-[410px] 2xl:w-[470px] 
-                rounded-md overflow-hidden
-                ${fullHeight ? 'h-[calc(100vh-150px)] md:h-[500px]' : 'h-[170px] md:h-[300px]'}
-              `}>
+              {/* PRODUCT CARD STYLE */}
+              <div
+                className={`
+                  rounded-md overflow-hidden
+                  ${
+                    displayProducts.length === 1
+                      ? "w-full max-w-3xl h-[300px] md:h-[450px]"
+                      : "w-[200px] md:w-[350px] xl:w-[410px] 2xl:w-[470px] h-[170px] md:h-[300px]"
+                  }
+                `}
+              >
                 <img 
                   src={product.coverIMG} 
                   alt={product.name} 
