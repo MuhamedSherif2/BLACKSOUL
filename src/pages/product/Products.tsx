@@ -18,8 +18,8 @@ const Products = ({ fullHeight = false, limit }: IProductsProps) => {
   const displayProducts = limit ? products.slice(0, limit) : products;
 
   return (
-    <section className={`w-full bg-black ${fullHeight ? 'py-10' : 'p-7'}`}>
-      <div className="container mx-auto mt-10">
+    <section className={`w-full bg-black ${fullHeight ? 'min-h-screen pt-16' : 'py-7'}`}>
+      <div className="container mx-auto">
         <h1 className="mb-5 text-white text-center font-bold text-xl md:text-3xl">
           Hoodies
         </h1>

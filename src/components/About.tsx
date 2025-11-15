@@ -9,8 +9,8 @@ const PaymentInfo = () => {
     ];
 
     const paymentMethods = [
-        { id: 1, name: "Instapay", image: "/payment/vodafone-cash.webp" },
-        { id: 2, name: "Vodafone Cash", image: "/payment/instapay.webp" },
+        { id: 1, name: "Vodafone Cash", image: "/payment/vodafone-cash.webp" },
+        { id: 2, name: "Instapay", image: "/payment/instapay.webp" },
     ];
 
     return (
